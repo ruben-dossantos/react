@@ -36,11 +36,10 @@ class Board extends React.Component {
 
 	render(){
 		let html = []
-		let arr = [[0,1,2],[3,4,5],[6,7,8]]
 		for(let i=0; i<3; i++){
 			let squares = []
 			for(let j=0; j<3; j++){
-				squares.push(this.renderSquare(arr[i][j]))
+				squares.push(this.renderSquare( 3 * i + j ))
 			}
 			html.push(<div key={i} className="board-row">{squares}</div>)
 		}
