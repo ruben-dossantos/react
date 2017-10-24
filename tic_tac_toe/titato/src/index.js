@@ -27,6 +27,7 @@ class Board extends React.Component {
 	renderSquare(i) {
 		return (
 			<Square
+				key={i}
 				value={this.props.squares[i]}
 				onClick={() => this.props.onClick(i)}
 			/>
@@ -34,25 +35,16 @@ class Board extends React.Component {
 	}
 
 	render(){
-		return (
-			<div>
-				<div className="board-row">
-					{this.renderSquare(0)}
-					{this.renderSquare(1)}
-					{this.renderSquare(2)}
-				</div>
-				<div className="board-row">
-					{this.renderSquare(3)}
-					{this.renderSquare(4)}
-					{this.renderSquare(5)}
-				</div>
-				<div className="board-row">
-					{this.renderSquare(6)}
-					{this.renderSquare(7)}
-					{this.renderSquare(8)}
-				</div>
-			</div>
-		)
+		let html = []
+		let arr = [[0,1,2],[3,4,5],[6,7,8]]
+		for(let i=0; i<3; i++){
+			let squares = []
+			for(let j=0; j<3; j++){
+				squares.push(this.renderSquare(arr[i][j]))
+			}
+			html.push(<div key={i} className="board-row">{squares}</div>)
+		}
+		return html
 	}
 }
 
@@ -99,6 +91,11 @@ class Game extends React.Component {
 		})
 	}
 
+	prettyDesc(desc, move){
+		if(move === this.state.stepNumber) return <span className="super-bold">{desc}</span>
+		else return desc
+	}
+
 	render() {
 		const history = this.state.history
 		const locations = this.state.locations
@@ -111,7 +108,7 @@ class Game extends React.Component {
 				'Go to game start'
 			return (
 				<li key={move}>
-					<button onClick={() => this.jumpTo(move)}>{desc}</button>
+					<button onClick={() => this.jumpTo(move)}>{this.prettyDesc(desc, move)}</button>
 				</li>
 			)
 		})
