@@ -90,11 +90,6 @@ class Game extends React.Component {
 		})
 	}
 
-	prettyDesc(desc, move){
-		if(move === this.state.stepNumber) return <span className="super-bold">{desc}</span>
-		else return desc
-	}
-
 	render() {
 		const history = this.state.history
 		const locations = this.state.locations
@@ -107,7 +102,11 @@ class Game extends React.Component {
 				'Go to game start'
 			return (
 				<li key={move}>
-					<button onClick={() => this.jumpTo(move)}>{this.prettyDesc(desc, move)}</button>
+					<button onClick={() => this.jumpTo(move)}>
+						<span className={this.state.stepNumber===move ? 'super-bold' : ''}>
+							{desc}
+						</span>
+					</button>
 				</li>
 			)
 		})
