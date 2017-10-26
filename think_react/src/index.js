@@ -52,7 +52,6 @@ class ProductTable extends React.Component{
 				if(product.category === category) rows.push(<ProductRow product={product} key={product.name} />)
 			})
 		})
-		
 
 		return (
 			<table>
